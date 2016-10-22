@@ -1,0 +1,48 @@
+html
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(rel='stylesheet',href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet',href='/stylesheets/carousel.css')
+		link(rel='stylesheet',href='/stylesheets/contactus.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+		script(src='/javascripts/bootstrap.js')
+		script(src='/javascripts/custom.js')
+		title AgSchoolLoha
+	body
+		.navbar-wrapper
+			.container
+				nav.navbar.navbar-inverse.navbar-static-top
+					.container
+						.navbar-header
+							button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+								span.sr-only Toggle navigation
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+							a.navbar-brand(style='color:white ;font-family:OpenSans', href='#') G.S.S. School, Loha
+						#navbar.navbar-collapse.collapse.pull-right
+							ul.nav.navbar-nav
+								li(class=(title == 'Home' ? 'active' : ''))
+									a(href='/') Home
+								li(class=(title == 'Gallary' ? 'active' : '') )
+									a(href='/gallery') Gallary
+								li(class=(title == 'Events' ? 'active' : ''))
+									a(href='/events/event') Events
+								li(class=(title == 'Contact' ? 'active' : ''))
+									a(href='/contact') Contact
+								li(class=(title == 'AboutUs' ? 'active' : ''))
+									a(href='/about') About Us
+								if session === 'admin'	
+									li
+										a(href='/admins/logout') Log Out
+								else	
+									li(class=(title == 'LogIn' ? 'active' : ''))
+										a(href='/admins/login') Log In
+			
+		block content
+		
+		#info(style='text-align:center;padding-top:6px;color:white;')
+			strong Know About Web Developer
+	

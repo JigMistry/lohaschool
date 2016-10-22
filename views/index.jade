@@ -1,0 +1,74 @@
+extends layout
+
+block content
+	#myCarousel.carousel.slide(data-ride='carousel')
+			ol.carousel-indicators
+				li.active(data-target='#myCarousel', data-slide-to='0')
+				li(data-target='#myCarousel', data-slide-to='1')
+				li(data-target='#myCarousel', data-slide-to='2')
+			.carousel-inner(role='listbox')
+				.item.active
+					img.first-slide(src='/images/tc1.jpg', alt='First slide')
+					.container
+						.carousel-caption
+							p
+								We address barriers to education and work with communities and local governments to improve the quality of education children receive
+				.item
+					img.second-slide(src='/images/h19.jpg', alt='Second slide')
+					.container
+						.carousel-caption
+							h1 Another example headline.
+							p
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							p
+								a.btn.btn-lg.btn-primary(href='#', role='button') Learn more
+				.item
+					img.third-slide(src='/images/h4.jpg', alt='Third slide')
+					.container
+						.carousel-caption
+							h1 Extra Curricular Activities
+							p
+								The students,who are really anxious to learn ,can develop healthy habits only in school.In a school we are taught how to move in society,how to behave with others and how to progress in life
+							p
+								a.btn.btn-lg.btn-primary(href='#', role='button') Browse gallery
+			a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+				span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+				span.sr-only Previous
+			a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+				span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+				span.sr-only Next
+		.container.marketing
+			.row
+				.col-lg-4
+					img.img-circle(src='/images/b.jpg', alt='Generic placeholder image', width='230', height='230')
+					h2 Heading
+					p
+						Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+					p
+						a.btn.btn-default(href='#', role='button') View details »
+				.col-lg-4
+					img.img-circle(src='/images/tu4.jpg', alt='Generic placeholder image', width='230', height='230')
+					h2 Heading
+					p
+						Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+					p
+						a.btn.btn-default(href='#', role='button') View details »
+				.col-lg-4
+					img.img-circle(src='/images/e1.jpg', alt='Generic placeholder image', width='230', height='230')
+					h2 Heading
+					p
+						Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+					p
+						a.btn.btn-default(href='#', role='button') View details » 
+			hr.featurette-divider
+			.row.featurette
+				.col-md-8.col-sm-12.col-xs-12
+					h2.featurette-heading
+						First featurette heading. 
+						span.text-muted It'll blow your mind.
+					p.lead
+						Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+				.col-md-4.col-sm-6.hidden-sm.hidden-xs
+					img.img-circle(style='border:1px solid black', src='/images/0111.JPG', alt='Generic placeholder image', width='400', height='400')
+			hr.featurette-divider
+			

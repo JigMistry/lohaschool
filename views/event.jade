@@ -1,0 +1,204 @@
+extends layout
+
+block content
+
+	.container
+		.row(style='height:120px;background-color:#ffad99;margin-top:90px;')
+			.col-lg-12(style='padding-left:50px;padding-top:30px;')
+				h1.hidden-xs(style='color:white;font-weight:bold;text-align:center') Upcoming Events....
+				h3.visible-xs(style='color:white;font-weight:bold;text-align:center') Upcoming Events....
+	
+		.row
+			.col-xs-12.col-sm-6.col-lg-4
+				.box
+					.icon
+						.image
+							i.fa.fa-thumbs-o-up
+						.info
+							h3.title Exams & Result
+							p
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+							.more
+								a(href='#', title='Title Link', data-toggle='modal', data-target='#examModal')
+									Read More 
+									i.fa.fa-angle-double-right
+					.space
+			.col-xs-12.col-sm-6.col-lg-4
+				.box
+					.icon
+						.image
+							i.fa.fa-flag
+						.info
+							h3.title Extra Curricular Activities
+							p
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+							.more
+								a(href='#', title='Title Link', data-toggle='modal', data-target='#extraCurricularModal')
+									Read More 
+									i.fa.fa-angle-double-right
+					.space
+			.col-xs-12.col-sm-6.col-lg-4
+				.box
+					.icon
+						.image
+							i.fa.fa-desktop
+						.info
+							h3.title Other Info.
+							p
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+							.more
+								a(href='#', title='Title Link', data-toggle='modal', data-target='#otherModal')
+									Read More 
+									i.fa.fa-angle-double-right
+					.space
+	
+		.row
+			.col-lg-12
+				div(style='text-align:center')
+					if session === 'admin'
+						button#addNew.btn.btn-info.active(type='button') Add New Event
+						
+		.row.eventform(style='display:none;')
+			.col-lg-4
+			.col-lg-4
+				button#hideForm.btn.btn-warning(type='button') Close Event Form
+				h2 Event Information
+			.col-lg-4
+		.row.eventform(style='display:none;')
+			.col-lg-4
+			.col-lg-4
+				
+				form(method='post',action='/events/addevent', enctype='multipart/form-data')
+					.form-group
+						label(for='eventName') Event Name
+						input#eventName.form-control(type='text', placeholder='Enter event name',name='eventName')
+					.form-group
+						label(for='sel1') Event Category
+						select#eventCategory.form-control(name='category')
+							option(value='other') --Select--
+							option(value='examResult') Exams and Results
+							option(value='extraCurricular') Extra Curricular 
+							option(value='other') Other
+					.form-group
+						label(for='EventDescription') Event Description
+						textarea#description.form-control(rows='6',name="eventDescription")
+					.form-group
+						label(for='file') Add Attachment (in pdf format)
+						input#file.form-control(type='file',name='eventFile')
+					div(style='text-align:center;')
+						button.btn.btn-success(type='submit') Submit
+			.col-lg-4
+				
+
+	#examModal.modal.fade(role='dialog')
+		.modal-dialog
+			.modal-content(style='width:100%')
+				.conatiner(style='width:100%')
+					.row(style='height:45px;')
+						.col-lg-8
+							h3 Exams And Results
+						.col-lg-4
+							button.close.btn.btn-warning(type='button', style="background:orange;font-size:20px;padding:5px 5px 5px 5px;opacity:1;text-shadow:''", data-dismiss='modal') Close
+					hr
+					if allEvents
+						each er, i in allEvents
+							if er.category === 'examResult'	
+								.row(style='height:40px;background:#e6ffcc;padding-top:6px;')
+									.col-lg-10 #{er.name}
+									.col-lg-2
+										if session === 'admin'
+											form(method='post',action='/events/delete')
+												input(type='hidden', value='#{er._id}', name='eventToDelete')
+												button.btn.btn-default(type='submit',data-toggle="tooltip", title='Click to Delete the Event',style='margin-top:4px;margin-left:-4px;')
+													span.glyphicon.glyphicon-trash.gi-1.5x
+								.row(style='height:40px')
+									.col-lg-1
+										button.btn.btn-default(type='button',data-toggle='popover', data-trigger='hover', title='#{er.name}', data-content='#{er.desc}',style='margin-top:4px;margin-left:-4px;')
+											span.glyphicon.glyphicon-tags.gi-1x
+											
+									.col-lg-1
+										button.btn.btn-default#previewFile(type='button',style='margin-top:4px;margin-left:-4px;' ,data-toggle='modal', data-target='#myModal' , onclick='getFileName("#{er.filename}")')
+											span.glyphicon.glyphicon-paperclip.gi-1x
+										
+							
+       
+	#extraCurricularModal.modal.fade(role='dialog')
+		.modal-dialog
+			.modal-content(style='width:100%')
+				.conatiner(style='width:100%')
+					.row(style='height:45px;')
+						.col-lg-8
+							h3 Extra Curricular Activities
+								
+							
+						.col-lg-4
+							button.close.btn.btn-warning(type='button', style="background:orange;font-size:20px;padding:5px 5px 5px 5px;opacity:1;text-shadow:''", data-dismiss='modal') Close
+					hr
+					if allEvents
+						each er, i in allEvents
+							if er.category === 'extraCurricular'	
+								.row(style='height:40px;background:#e6ffcc;padding-top:6px;')
+									.col-lg-10 #{er.name}
+									.col-lg-2
+										if session === 'admin' 
+											form(method='post',action='/events/delete')
+												input(type='hidden', value='#{er._id}', name='eventToDelete')
+												button.btn.btn-default(type='submit',data-toggle="tooltip", title='Click to Delete the Event',style='margin-top:4px;margin-left:-4px;')
+													span.glyphicon.glyphicon-trash.gi-1.5x
+													
+								.row(style='height:40px')
+									.col-lg-1
+										button.btn.btn-default(type='button',data-toggle='popover', data-trigger='hover', title='#{er.name}', data-content='#{er.desc}',style='margin-top:4px')
+											span.glyphicon.glyphicon-tags.gi-1x
+											
+									.col-lg-1
+										button.btn.btn-default#previewFile(type='button',style='margin-top:4px;margin-left:-4px;' ,data-toggle='modal', data-target='#myModal' , onclick='getFileName("#{er.filename}")')
+											span.glyphicon.glyphicon-paperclip.gi-1x
+											
+						
+	#otherModal.modal.fade(role='dialog')
+		.modal-dialog
+			.modal-content(style='width:100%')
+				.conatiner(style='width:100%')
+					.row(style='height:45px;')
+						.col-lg-8
+							h3 Other Events
+								
+							
+						.col-lg-4
+							button.close.btn.btn-warning(type='button', style="background:orange;font-size:20px;padding:5px 5px 5px 5px;opacity:1;text-shadow:''", data-dismiss='modal') Close
+					hr
+					if allEvents
+						each er, i in allEvents
+							if er.category === 'other'	
+								.row(style='height:40px;background:#e6ffcc;padding-top:6px;')
+									.col-lg-10 #{er.name}
+									.col-lg-2
+										if session === 'admin'
+											form(method='post',action='/events/delete')
+												input(type='hidden', value='#{er._id}', name='eventToDelete')
+												button.btn.btn-default(type='submit',data-toggle="tooltip", title='Click to Delete the Event',style='margin-top:4px;margin-left:-4px;')
+													span.glyphicon.glyphicon-trash.gi-1.5x
+								.row(style='height:40px')
+									.col-lg-1
+										button.btn.btn-default(type='button',data-toggle='popover', data-trigger='hover', title='#{er.name}', data-content='#{er.desc}',style='margin-top:4px;margin-left:-4px;')
+											span.glyphicon.glyphicon-tags.gi-1x
+											
+									.col-lg-1
+										button.btn.btn-default#previewFile(type='button',style='margin-top:4px;margin-left:-4px;' ,data-toggle='modal', data-target='#myModal' , onclick='getFileName("#{er.filename}")')
+											span.glyphicon.glyphicon-paperclip.gi-1x
+										
+	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+					h4#myModalLabel.modal-title Attached File
+				.modal-body
+					div(style='text-align: center;')
+						iframe#filePopUp(src='/images/uploads/3dc823d45bae9f3da032233f40f77c59', style='width:500px; height:500px;', frameborder='0')
+				.modal-footer
+					a.btn.btn-default#download(href='#', role='button',download="Agschool's event Attachment") Download
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
+					
+					
